@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power Tech — Admin Panel</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* Admin-specific additional styles */
+    body { background: var(--bg-primary); padding: 0; }
+
+    #admin-login-page  { display: flex; }
+    #admin-panel-page  { display: none; min-height: 100vh; }
+
+    .admin-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+    }
+
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+
+    .orders-table-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .table-toolbar {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-toolbar h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      padding: 8px 14px;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .filter-select:focus { border-color: var(--accent-gold); outline: none; }
+
+    .collapsible-items {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .collapsible-items.expanded { max-height: 300px; }
+
+    .expand-btn {
+      background: none;
+      border: none;
+      color: var(--accent-blue);
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    td.items-cell { min-width: 200px; }
+
+    .save-btn-cell { white-space: nowrap; }
+
+    /* Loading row */
+    .table-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      color: var(--text-muted);
+      gap: 14px;
+    }
+
+    .admin-pagination {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ADMIN LOGIN SCREEN
+  ═══════════════════════════════════════════════════════ -->
+  <div id="admin-login-page" class="admin-login">
+    <div class="admin-login-box">
+      <!-- Logo -->
+      <div style="text-align:center; margin-bottom:32px;">
+        <div style="font-size:3rem; margin-bottom:12px; filter:drop-shadow(0 0 15px rgba(245,182,66,0.7));">⚡</div>
+        <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+          Power Tech
+        </div>
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Admin Panel</div>
+      </div>
+
+      <form onsubmit="adminLogin(event)" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="admin-key-input">Admin API Key</label>
+          <input
+            id="admin-key-input"
+            class="form-input"
+            type="password"
+            placeholder="Enter your admin key"
+            autocomplete="current-password"
+            required
+          />
+          <span id="admin-key-err" class="form-error"></span>
+        </div>
+        <div id="admin-login-error" class="form-error mb-16" style="font-size:0.85rem;"></div>
+        <button type="submit" id="admin-login-btn" class="btn btn-gold w-full">
+          Access Admin Panel →
+        </button>
+      </form>
+
+      <p style="text-align:center; margin-top:20px; font-size:0.8rem; color:var(--text-muted);">
+        🔒 This area is restricted to authorised personnel only.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ADMIN PANEL (shown after login)
+  ═══════════════════════════════════════════════════════ -->
+  <div id="admin-panel-page">
+
+    <!-- Admin Header -->
+    <div class="admin-header">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:1.8rem;">⚡</span>
+        <div>
+          <div style="font-family:var(--font-display); font-weight:700; font-size:1.1rem;">Power Tech Admin</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Order Management System</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="btn btn-outline btn-sm" onclick="fetchAdminOrders()">↻ Refresh</button>
+        <button class="btn btn-danger btn-sm" onclick="adminLogout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-container">
+
+      <!-- Stats Row -->
+      <div class="admin-stats" id="admin-stats">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-processing" style="color:#fbbf24;">—</div>
+          <div class="stat-label">Processing</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-shipped" style="color:var(--accent-blue);">—</div>
+          <div class="stat-label">Shipped</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-delivered" style="color:var(--accent-green);">—</div>
+          <div class="stat-label">Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-revenue">—</div>
+          <div class="stat-label">Total Revenue</div>
+        </div>
+      </div>
+
+      <!-- Orders Table Card -->
+      <div class="orders-table-card">
+        <div class="table-toolbar">
+          <h2>📋 All Orders</h2>
+          <div class="filter-row">
+            <select class="filter-select" id="filter-status" onchange="applyAdminFilter()">
+              <option value="">All Statuses</option>
+              <option value="Processing">Processing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+            <select class="filter-select" id="filter-payment" onchange="applyAdminFilter()">
+              <option value="">All Payments</option>
+              <option value="COD">COD</option>
+              <option value="UPI">UPI</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table id="admin-orders-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th class="items-cell">Items</th>
+                <th>Total</th>
+                <th>Payment</th>
+                <th>Screenshot</th>
+                <th>Status</th>
+                <th class="save-btn-cell">Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-body">
+              <tr>
+                <td colspan="10">
+                  <div class="table-loading">
+                    <div class="spinner" style="width:28px;height:28px;border-width:2px;"></div>
+                    Loading orders…
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="admin-pagination" id="admin-pagination">
+          <span id="admin-order-count">0 orders</span>
+        </div>
+      </div>
+
+    </div><!-- end admin-container -->
+  </div>
+
+  <!-- LIGHTBOX (shared with main site) -->
+  <div id="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Screenshot" loading="lazy" />
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- Config & Admin JS -->
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+
+  <!-- Minimal stubs so admin.js can call showToast / openLightbox -->
+  <script>
+    // ─── Toast (standalone for admin) ───────────────────────────────────────
+    function showToast(type, title, message) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const iconMap = { success: '✅', error: '❌', info: 'ℹ️' };
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <span class="toast-icon">${iconMap[type]||'ℹ️'}</span>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          ${message ? `<div class="toast-msg">${message}</div>` : ''}
+        </div>
+        <button class="toast-close" onclick="this.parentElement.remove()">✕</button>`;
+      container.appendChild(toast);
+      requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add('show')));
+      setTimeout(() => { toast.classList.add('hide'); setTimeout(() => toast.remove(), 500); }, 3500);
+    }
+
+    // ─── Lightbox (shared) ───────────────────────────────────────────────────
+    function openLightbox(src) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = src;
+      lb.classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
