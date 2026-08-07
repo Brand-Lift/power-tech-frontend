@@ -5,14 +5,27 @@
  *   GET /api/admin/orders              → all orders with user info
  *   PUT /api/admin/order/:id/status    → update order status
  *
- * ✅ SCREENSHOT FIX: Screenshot column renders <img> thumbnail.
- *    Clicking the thumbnail opens the lightbox (full-size view).
+ * ✅ SCREENSHOT FIX (v2):
+ *    - Full Base64 stored in screenshotMap (no attribute truncation).
+ *    - Clicking thumbnail calls openAdminLightbox(orderId).
+ *    - Self-contained lightbox overlay — no shared HTML element needed.
+ *    - N/A shown in grey when screenshot is absent.
  */
 
 // ─── Admin State ──────────────────────────────────────────────────────────────
-var adminKey       = null;
-var allAdminOrders = [];
-var filteredOrders = [];
+var adminKey        = null;
+var allAdminOrders  = [];
+var filteredOrders  = [];
+
+/**
+ * screenshotMap — stores the FULL Base64 data URL for each order.
+ * Key  : order.id (string)
+ * Value: order.payment_screenshot (string) — full, never truncated
+ *
+ * We use a JS object instead of HTML attributes to avoid corrupting
+ * Base64 strings with HTML-entity escaping or length limits.
+ */
+var screenshotMap = {};
 
 // ─── Login ────────────────────────────────────────────────────────────────────
 
@@ -168,23 +181,46 @@ function renderAdminOrders(orders) {
     return;
   }
 
+  // Build all rows (thumbnail <img> elements start with src="")
   tbody.innerHTML = orders.map(function(order) { return buildAdminRow(order); }).join('');
+
+  // ✅ Wire screenshots: set .src from screenshotMap AFTER innerHTML is written.
+  // This is the key fix — img.src is set via JS property, not HTML attribute,
+  // so the full Base64 string is never escaped or truncated.
+  wireScreenshots();
 }
 
 /**
  * Builds a single <tr> HTML string for an order.
- * ✅ Screenshot column: shows <img> thumbnail; click opens lightbox.
+ *
+ * ✅ SCREENSHOT FIX:
+ *   1. Full Base64 string is stored in screenshotMap[order.id] — never
+ *      truncated or HTML-escaped into an attribute (which corrupts it).
+ *   2. The thumbnail <img> uses the full src directly (browsers handle
+ *      large data URLs fine in src; it's attributes that get corrupted).
+ *   3. onclick calls openAdminLightbox(orderId) — no inline data passing.
+ *   4. N/A shown in grey when payment_screenshot is absent/empty.
+ *
  * @param {Object} order
  * @returns {string}
  */
 function buildAdminRow(order) {
   var shortId  = order.id.substring(0, 8).toUpperCase();
+  var safeId   = order.id;   // full UUID, used as key in screenshotMap
   var items    = Array.isArray(order.items) ? order.items : (JSON.parse(order.items || '[]') || []);
   var dateStr  = new Date(order.created_at).toLocaleDateString('en-IN', {
-    day: '2-digit', month: 'short', year: 'numeric'
+    day: '2-digit', month: 'short', year: 'numeric',
   });
 
-  // Items column
+  // ── Store full screenshot in JS map (never in HTML attributes) ──────────────
+  var hasScreenshot = order.payment_screenshot && order.payment_screenshot.length > 10;
+  if (hasScreenshot) {
+    screenshotMap[safeId] = order.payment_screenshot; // full string, unmodified
+  } else {
+    delete screenshotMap[safeId];
+  }
+
+  // ── Items column ────────────────────────────────────────────────────────────
   var firstItem  = items[0];
   var extraItems = items.slice(1);
 
@@ -199,26 +235,28 @@ function buildAdminRow(order) {
         '</div>'
       : '');
 
-  // ✅ SCREENSHOT COLUMN — renders <img> with onclick lightbox
+  // ── Screenshot column ────────────────────────────────────────────────────────
+  // The thumbnail src is set directly from the full data URL via JS after
+  // innerHTML is written (avoids HTML-attribute corruption of Base64).
+  // We use a placeholder src and a data-orderid attribute to wire it up.
   var screenshotHTML;
-  if (order.payment_screenshot && order.payment_screenshot.length > 10) {
-    // We store as Base64 data URL; pass it safely via a data attribute
+  if (hasScreenshot) {
     screenshotHTML =
       '<img' +
         ' class="admin-screenshot"' +
-        ' src="' + escapeHtmlAttr(order.payment_screenshot.substring(0, 500)) + '"' +
+        ' id="ss-' + safeId + '"' +
+        ' src=""' +                          // filled by wireScreenshots()
         ' alt="UPI Payment Screenshot"' +
         ' loading="lazy"' +
-        ' onclick="adminOpenScreenshot(this.getAttribute(\'data-full\'))"' +
-        ' data-full="' + escapeHtmlAttr(order.payment_screenshot.substring(0, 800)) + '"' +
+        ' data-orderid="' + safeId + '"' +  // safe — just a UUID, no special chars
         ' title="Click to view full screenshot"' +
-        ' onerror="this.style.display=\'none\'; this.insertAdjacentHTML(\'afterend\',\'<span style=&quot;color:var(--accent-red);font-size:0.75rem;&quot;>Cannot load image</span>\')"' +
-      ' />';
+        ' onclick="openAdminLightbox(this.dataset.orderid)"' +
+      '/>';
   } else {
-    screenshotHTML = '<span style="color:var(--text-muted);font-size:0.75rem;">N/A</span>';
+    screenshotHTML = '<span style="color:#6b7280;font-size:0.8rem;font-style:italic;">N/A</span>';
   }
 
-  // Status badge class
+  // ── Status badge class ───────────────────────────────────────────────────────
   var statusClass = {
     Processing: 'status-processing',
     Shipped:    'status-shipped',
@@ -227,10 +265,10 @@ function buildAdminRow(order) {
   }[order.order_status] || 'status-processing';
 
   return (
-    '<tr id="row-' + order.id + '">' +
+    '<tr id="row-' + safeId + '">' +
       '<td style="font-weight:600;color:var(--accent-gold);">' +
         '#' + shortId + '<br/>' +
-        '<span style="font-size:0.7rem;color:var(--text-muted);">' + dateStr + '</span>' +
+        '<span style="font-size:0.7rem;color:#6b7280;">' + dateStr + '</span>' +
       '</td>' +
       '<td>' + escapeHtml(order.customer_name || (order.users && order.users.name) || '—') + '</td>' +
       '<td>' + escapeHtml(order.customer_phone || (order.users && order.users.phone) || '—') + '</td>' +
@@ -240,7 +278,9 @@ function buildAdminRow(order) {
         escapeHtml(order.customer_pincode) +
       '</td>' +
       '<td class="items-cell">' + itemsHTML + '</td>' +
-      '<td style="font-weight:700;color:var(--accent-gold);">₹' + parseFloat(order.total_amount).toLocaleString('en-IN') + '</td>' +
+      '<td style="font-weight:700;color:var(--accent-gold);">₹' +
+        parseFloat(order.total_amount).toLocaleString('en-IN') +
+      '</td>' +
       '<td>' +
         '<span class="status-badge ' + statusClass + '" style="display:inline-flex;">' +
           (order.payment_method === 'COD' ? '💵' : '📲') + ' ' + escapeHtml(order.payment_method) +
@@ -248,7 +288,7 @@ function buildAdminRow(order) {
       '</td>' +
       '<td>' + screenshotHTML + '</td>' +
       '<td>' +
-        '<select id="status-' + order.id + '" class="filter-select" style="min-width:130px;">' +
+        '<select id="status-' + safeId + '" class="filter-select" style="min-width:130px;">' +
           CONFIG.ORDER_STATUSES.map(function(s) {
             return '<option value="' + s + '"' + (s === order.order_status ? ' selected' : '') + '>' + s + '</option>';
           }).join('') +
@@ -257,49 +297,181 @@ function buildAdminRow(order) {
       '<td style="white-space:nowrap;">' +
         '<button' +
           ' class="btn btn-gold btn-sm"' +
-          ' id="save-btn-' + order.id + '"' +
-          ' onclick="updateOrderStatus(\'' + order.id + '\')"' +
+          ' id="save-btn-' + safeId + '"' +
+          ' onclick="updateOrderStatus(\'' + safeId + '\')"' +
         '>Save</button>' +
       '</td>' +
     '</tr>'
   );
 }
 
-// ─── Screenshot Lightbox (Admin) ──────────────────────────────────────────────
+/**
+ * wireScreenshots — called after renderAdminOrders() writes HTML.
+ * Sets the .src of every thumbnail <img> directly from screenshotMap
+ * (bypasses HTML-attribute encoding entirely).
+ */
+function wireScreenshots() {
+  Object.keys(screenshotMap).forEach(function(orderId) {
+    var img = document.getElementById('ss-' + orderId);
+    if (img && !img.src) {
+      img.src = screenshotMap[orderId]; // full Base64, set via JS property
+    }
+  });
+}
+
+// ─── Admin Lightbox (self-contained) ─────────────────────────────────────────
 
 /**
- * Opens the admin screenshot in the shared lightbox.
- * @param {string} src — Base64 data URL or image URL
+ * openAdminLightbox — opens a full-screen overlay showing the payment
+ * screenshot for the given orderId.
+ *
+ * Design:
+ *  - Self-contained: creates its own overlay DOM element every time
+ *    (no dependency on a shared #lightbox element in the HTML).
+ *  - Source comes from screenshotMap[orderId] — the full, untruncated
+ *    Base64 string stored when the row was built.
+ *  - Click anywhere on the overlay (or press Escape) to close.
+ *
+ * @param {string} orderId — the UUID of the order
  */
-function adminOpenScreenshot(src) {
+function openAdminLightbox(orderId) {
+  var src = screenshotMap[orderId];
+
   if (!src || src.length < 10) {
-    showToast('error', '❌ No Image', 'Could not load the screenshot.');
+    showToast('error', '❌ No Image', 'Screenshot not available for this order.');
     return;
   }
 
-  var lb    = document.getElementById('lightbox');
-  var lbImg = document.getElementById('lightbox-img');
+  // Remove any existing admin lightbox first
+  closeAdminLightbox();
 
-  if (!lb || !lbImg) {
-    // Fallback: open in new tab
-    var win = window.open();
-    if (win) {
-      win.document.write('<img src="' + escapeHtmlAttr(src) + '" style="max-width:100%;height:auto;" />');
-    }
-    return;
+  // ── Build overlay ────────────────────────────────────────────────────────────
+  var overlay = document.createElement('div');
+  overlay.id = 'admin-lightbox-overlay';
+  overlay.style.cssText = [
+    'position:fixed',
+    'inset:0',
+    'z-index:9999',
+    'background:rgba(0,0,0,0.92)',
+    'display:flex',
+    'align-items:center',
+    'justify-content:center',
+    'padding:20px',
+    'cursor:zoom-out',
+    'animation:adminLbFadeIn 0.2s ease both',
+  ].join(';');
+
+  // ── Close button ─────────────────────────────────────────────────────────────
+  var closeBtn = document.createElement('button');
+  closeBtn.textContent = '✕';
+  closeBtn.title = 'Close (Esc)';
+  closeBtn.style.cssText = [
+    'position:absolute',
+    'top:18px',
+    'right:20px',
+    'width:42px',
+    'height:42px',
+    'border-radius:50%',
+    'background:rgba(255,255,255,0.12)',
+    'border:1px solid rgba(255,255,255,0.25)',
+    'color:#fff',
+    'font-size:1.2rem',
+    'cursor:pointer',
+    'display:flex',
+    'align-items:center',
+    'justify-content:center',
+    'transition:background 0.15s',
+    'z-index:2',
+  ].join(';');
+  closeBtn.addEventListener('mouseenter', function() {
+    this.style.background = 'rgba(255,255,255,0.25)';
+  });
+  closeBtn.addEventListener('mouseleave', function() {
+    this.style.background = 'rgba(255,255,255,0.12)';
+  });
+  closeBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    closeAdminLightbox();
+  });
+
+  // ── Image ────────────────────────────────────────────────────────────────────
+  var img = document.createElement('img');
+  img.alt    = 'Payment Screenshot — Order #' + orderId.substring(0, 8).toUpperCase();
+  img.style.cssText = [
+    'max-width:90vw',
+    'max-height:88vh',
+    'border-radius:12px',
+    'box-shadow:0 20px 60px rgba(0,0,0,0.7)',
+    'object-fit:contain',
+    'cursor:default',
+    'animation:adminLbScaleIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both',
+  ].join(';');
+
+  // Label (order ID)
+  var label = document.createElement('div');
+  label.textContent = 'Order #' + orderId.substring(0, 8).toUpperCase() + ' — Payment Screenshot';
+  label.style.cssText = [
+    'position:absolute',
+    'bottom:18px',
+    'left:50%',
+    'transform:translateX(-50%)',
+    'background:rgba(0,0,0,0.6)',
+    'color:#d1d5db',
+    'font-size:0.8rem',
+    'padding:6px 16px',
+    'border-radius:999px',
+    'white-space:nowrap',
+    'pointer-events:none',
+  ].join(';');
+
+  // Error fallback
+  img.onerror = function() {
+    img.style.display = 'none';
+    var errMsg = document.createElement('div');
+    errMsg.textContent = '⚠️ Could not display the screenshot.';
+    errMsg.style.cssText = 'color:#ef4444;font-size:1rem;text-align:center;';
+    overlay.appendChild(errMsg);
+  };
+
+  // Click on overlay background → close; click on image → do nothing
+  overlay.addEventListener('click', function() { closeAdminLightbox(); });
+  img.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  // ── Inject keyframe CSS once ─────────────────────────────────────────────────
+  if (!document.getElementById('admin-lb-styles')) {
+    var style = document.createElement('style');
+    style.id = 'admin-lb-styles';
+    style.textContent =
+      '@keyframes adminLbFadeIn  { from { opacity:0; } to { opacity:1; } }' +
+      '@keyframes adminLbScaleIn { from { transform:scale(0.88); opacity:0; } to { transform:scale(1); opacity:1; } }';
+    document.head.appendChild(style);
   }
 
-  lbImg.src = src;
-  lb.classList.add('open');
+  // ── Assemble & show ──────────────────────────────────────────────────────────
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(img);
+  overlay.appendChild(label);
+  document.body.appendChild(overlay);
+
+  // Set src AFTER appending to DOM (avoids flash of broken image in some browsers)
+  img.src = src;
+
+  // Lock body scroll
+  document.body.style.overflow = 'hidden';
 }
 
-function closeLightbox() {
-  var lb = document.getElementById('lightbox');
-  if (lb) lb.classList.remove('open');
+/** Removes the admin lightbox overlay and restores body scroll. */
+function closeAdminLightbox() {
+  var overlay = document.getElementById('admin-lightbox-overlay');
+  if (overlay) {
+    overlay.remove();
+    document.body.style.overflow = '';
+  }
 }
 
+// Close on Escape key
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'Escape') closeAdminLightbox();
 });
 
 // ─── Update Order Status ──────────────────────────────────────────────────────
