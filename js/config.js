@@ -82,3 +82,24 @@ const PRODUCTS = [
     ],
   },
 ];
+{id: 'pg-pro-7000',
+  model: 'PG_PRO_7000',
+  name: 'PowerGuard PRO 7000'.
+  badge: {text'🔝 Upper Premium', class: 'badge-premium'},
+   voltageRange: '100V – 320',
+    capacityVA: '7000 VA',
+    price: 12000,
+    image: 'img/product3.jpg',
+    description:
+      'The PowerGuard PRO 5000 is our flagship whole-home protection system, engineered for demanding environments with severe voltage fluctuations from 100V to 290V. ' +
+      'Its servo-motor controlled automatic voltage regulation delivers a rock-steady 220V ±1% output, protecting even the most sensitive electronics including inverter ACs, smart refrigerators, and home theatres. ' +
+      'The industrial-grade copper winding transformer and IP54-rated cabinet ensure decades of maintenance-free performance — backed by our comprehensive 2-year replacement warranty.',
+    appliances: [
+      { icon: '❄️', name: 'Inverter AC' },
+      { icon: '🧊', name: 'Smart Fridge' },
+      { icon: '🫧', name: 'Washing Machine' },
+      { icon: '📡', name: 'Microwave' },
+      { icon: '🖥️', name: 'Home Theatre' },
+      { icon: '🔌', name: 'Full Home' },
+    ],
+  }, 
