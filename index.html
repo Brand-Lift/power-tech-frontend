@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Power Tech — Premium Voltage Stabilizers</title>
-  <meta name="description" content="Power Tech offers India's most trusted premium voltage stabilizers — protecting your ACs, refrigerators, and home appliances from dangerous voltage fluctuations." />
-  <meta name="keywords" content="voltage stabilizer, AC stabilizer, refrigerator stabilizer, Power Tech, buy stabilizer online India" />
+  <title>Power Tech — Premium Voltage Stabilizers | 10,000+ Families Trust Us</title>
+  <meta name="description" content="Power Tech offers India's most trusted voltage stabilizers for 1.5 Ton AC, 2 Ton AC, Refrigerator, and heavy appliances. 10km free delivery. Shop now." />
+  <meta name="keywords" content="voltage stabilizer, AC stabilizer, 1.5 ton AC stabilizer, 2 ton AC stabilizer, Power Tech, buy stabilizer India" />
   <meta property="og:title" content="Power Tech — Premium Voltage Stabilizers" />
-  <meta property="og:description" content="Shop premium voltage stabilizers with advanced protection. Free shipping across India." />
+  <meta property="og:description" content="Mid Range &amp; Upper Range voltage stabilizers for every need. 10,000+ families trust Power Tech." />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -20,9 +20,9 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════
        SPLASH SCREEN
-  ═══════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════════════════ -->
   <div id="splash-screen" role="presentation" aria-hidden="true">
     <div class="splash-bg"></div>
     <div class="splash-logo-wrap">
@@ -37,9 +37,9 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════
        HEADER
-  ═══════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════════════════ -->
   <header id="header" role="banner">
     <div class="header-inner">
       <!-- Logo -->
@@ -48,175 +48,371 @@
         <span class="logo-text">Power Tech</span>
       </a>
 
-      <!-- Desktop nav tabs (hidden on mobile, shown via CSS) -->
+      <!-- Desktop Nav (hidden on mobile) -->
       <nav class="header-nav" role="navigation" aria-label="Primary Navigation">
         <button id="nav-home-desk"   class="nav-btn active" onclick="switchTab('home')"   aria-label="Home">🏠 Home</button>
         <button id="nav-cart-desk"   class="nav-btn"        onclick="switchTab('cart')"   aria-label="Cart">🛒 Cart</button>
         <button id="nav-orders-desk" class="nav-btn"        onclick="switchTab('orders')" aria-label="My Orders">📋 My Orders</button>
       </nav>
 
-      <!-- Right side controls -->
+      <!-- Header Right -->
       <div class="header-right">
-        <!-- Cart button with badge -->
+        <!-- Cart button -->
         <button id="cart-toggle-btn" class="cart-btn" onclick="openCartDrawer()" aria-label="Open Cart">
           🛒
           <span id="cart-badge" class="cart-badge" aria-live="polite">0</span>
         </button>
 
-        <!-- Auth: shown when logged out -->
+        <!-- Auth button (shown when logged out) -->
         <button id="auth-btn" class="auth-btn" onclick="openAuthModal()" aria-label="Sign In or Sign Up">
           Sign In / Sign Up
         </button>
 
-        <!-- Profile chip: shown when logged in -->
+        <!-- Profile chip (shown when logged in) -->
         <div id="profile-chip" class="profile-chip hidden" onclick="toggleProfileDropdown()" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0">
           <div class="profile-avatar" id="profile-avatar-initials">PT</div>
           <span class="profile-name" id="profile-name-text">User</span>
-          <span style="font-size:0.7rem; color: var(--text-muted);">▾</span>
+          <span style="font-size:0.7rem;color:var(--text-muted);">▾</span>
           <div class="profile-dropdown" role="menu">
-            <button class="dropdown-item" onclick="switchTab('orders')" role="menuitem">
-              📋 My Orders
-            </button>
-            <div class="divider" style="margin: 4px 0;"></div>
-            <button class="dropdown-item danger" onclick="logout()" role="menuitem">
-              🚪 Logout
-            </button>
+            <button class="dropdown-item" onclick="switchTab('orders')" role="menuitem">📋 My Orders</button>
+            <div class="divider" style="margin:4px 0;"></div>
+            <button class="dropdown-item danger" onclick="logout()" role="menuitem">🚪 Logout</button>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ═══════════════════════════════════════════════════════
-       MAIN APP CONTENT
-  ═══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════
+       MAIN APP
+  ══════════════════════════════════════════════════════ -->
   <main id="app" role="main">
 
-    <!-- ─────────────── HOME SECTION ─────────────── -->
+    <!-- ───────────────── HOME SECTION ───────────────── -->
     <section id="section-home" class="section active" aria-label="Home">
 
-      <!-- Hero -->
+      <!-- ── Hero ─────────────────────────────────────── -->
       <div class="hero">
         <div class="hero-bg" aria-hidden="true"></div>
-        <div class="hero-eyebrow">⚡ India's #1 Voltage Stabilizer Brand</div>
+        <div class="hero-eyebrow">⚡ India's Trusted Voltage Stabilizer Brand</div>
         <h1 class="hero-title">
           Protect Your Appliances with<br />
           <span class="highlight">Power Tech</span> Stabilizers
         </h1>
         <p class="hero-subtitle">
-          Advanced microprocessor-controlled voltage stabilizers engineered to safeguard your premium appliances from dangerous voltage fluctuations. Trusted by 5 lakh+ Indian families.
+          Advanced microprocessor-controlled voltage stabilizers — from 1.5 Ton AC protection
+          to full heavy-duty commercial setups. Trusted by 10,000+ Indian families.
         </p>
         <div class="hero-cta">
-          <a href="#products" class="btn btn-gold" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'}); return false;">
+          <a href="#mid-range-section" class="btn btn-gold" onclick="document.getElementById('mid-range-section').scrollIntoView({behavior:'smooth'}); return false;">
             🛍️ Shop Now
           </a>
-          <a href="tel:+919876543210" class="btn btn-outline">
+          <a href="tel:+919928954791" class="btn btn-outline">
             📞 Call Us
           </a>
         </div>
-        <div class="hero-features">
-          <div class="hero-feature"><span>⚡</span><span>140V–280V Protection</span></div>
-          <div class="hero-feature"><span>🔒</span><span>High/Low Voltage Cutoff</span></div>
-          <div class="hero-feature"><span>🚀</span><span>Instant Recovery</span></div>
-          <div class="hero-feature"><span>🛡️</span><span>2-Year Warranty</span></div>
-          <div class="hero-feature"><span>🚚</span><span>Free Pan-India Shipping</span></div>
-        </div>
-      </div>
 
-      <!-- Products -->
-      <div id="products">
-        <div class="section-header">
-          <h2>Our <span class="text-gold">Stabilizer</span> Range</h2>
-          <p>Choose the perfect protection for your appliances — from compact home units to industrial-grade powerhouses.</p>
-        </div>
-
-        <!-- Products are injected here by app.js -->
-        <div id="products-grid" class="products-grid" role="list" aria-label="Product List">
-          <!-- Skeleton placeholders shown while page loads -->
-          <div class="skeleton-card" aria-hidden="true">
-            <div class="skeleton sk-img"></div>
-            <div style="padding:22px;">
-              <div class="skeleton sk-line short mb-8"></div>
-              <div class="skeleton sk-line medium mb-8"></div>
-              <div class="skeleton sk-line mb-8"></div>
-              <div class="skeleton sk-btn mt-16"></div>
+        <!-- Floating badges -->
+        <div class="hero-badges">
+          <div class="hero-badge fade-up">
+            <span class="badge-icon">🚚</span>
+            <div>
+              <div class="badge-title">10km Free Delivery</div>
+              <div class="badge-sub">Beyond 10km, charges applicable</div>
             </div>
           </div>
-          <div class="skeleton-card" aria-hidden="true">
-            <div class="skeleton sk-img"></div>
-            <div style="padding:22px;">
-              <div class="skeleton sk-line short mb-8"></div>
-              <div class="skeleton sk-line medium mb-8"></div>
-              <div class="skeleton sk-line mb-8"></div>
-              <div class="skeleton sk-btn mt-16"></div>
+          <div class="hero-badge fade-up">
+            <span class="badge-icon">👨‍👩‍👧‍👦</span>
+            <div>
+              <div class="badge-title">10,000+ Families</div>
+              <div class="badge-sub">Trust Power Tech</div>
             </div>
           </div>
-          <div class="skeleton-card" aria-hidden="true">
-            <div class="skeleton sk-img"></div>
-            <div style="padding:22px;">
-              <div class="skeleton sk-line short mb-8"></div>
-              <div class="skeleton sk-line medium mb-8"></div>
-              <div class="skeleton sk-line mb-8"></div>
-              <div class="skeleton sk-btn mt-16"></div>
+          <div class="hero-badge fade-up">
+            <span class="badge-icon">🛡️</span>
+            <div>
+              <div class="badge-title">2-Year Warranty</div>
+              <div class="badge-sub">On all models</div>
+            </div>
+          </div>
+          <div class="hero-badge fade-up">
+            <span class="badge-icon">⚡</span>
+            <div>
+              <div class="badge-title">100V – 300V Range</div>
+              <div class="badge-sub">Ultra wide protection</div>
             </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ─────────────── CART SECTION ─────────────── -->
+      <!-- ── Mid Range Section ──────────────────────────── -->
+      <div id="mid-range-section" class="category-section">
+        <div class="category-header fade-up">
+          <div class="category-tag cat-mid">Category A</div>
+          <h2 class="category-title">⚡ Mid Range <span>(1.5 Ton AC)</span></h2>
+          <p class="category-desc">Best for single heavy appliances — 1.5 Ton AC, Refrigerator, Water Pump, LED TV.<br/>Output: 200V – 240V ±5%</p>
+          <div class="category-specs-row">
+            <div class="cat-spec-chip">✅ Fast Relay Switching</div>
+            <div class="cat-spec-chip">✅ Overload Protection</div>
+            <div class="cat-spec-chip">✅ Time-Delay Start</div>
+          </div>
+        </div>
+
+        <!-- Mid range product grid -->
+        <div id="mid-range-grid" class="products-grid" role="list" aria-label="Mid Range Products">
+          <!-- Skeleton loaders -->
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Upper Range Section ─────────────────────────── -->
+      <div id="upper-range-section" class="category-section">
+        <div class="category-header fade-up">
+          <div class="category-tag cat-upper">Category B</div>
+          <h2 class="category-title">🚀 Upper Range <span>(2 Ton AC / Heavy Duty)</span></h2>
+          <p class="category-desc">For heavy-duty commercial use — 2 Ton AC, Washing Machine, Microwave, partial whole-home loads.<br/>Output: 200V – 240V ±5%</p>
+          <div class="category-specs-row">
+            <div class="cat-spec-chip">✅ Heavy Load Capacity</div>
+            <div class="cat-spec-chip">✅ Commercial Grade</div>
+            <div class="cat-spec-chip">✅ Thermal Protection</div>
+          </div>
+        </div>
+
+        <!-- Upper range product grid -->
+        <div id="upper-range-grid" class="products-grid" role="list" aria-label="Upper Range Products">
+          <!-- Skeleton loaders -->
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true">
+            <div class="skeleton sk-img"></div>
+            <div style="padding:22px;">
+              <div class="skeleton sk-line short mb-8"></div>
+              <div class="skeleton sk-line medium mb-8"></div>
+              <div class="skeleton sk-line mb-8"></div>
+              <div class="skeleton sk-btn" style="margin-top:16px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Contact Requirement Section ─────────────────── -->
+      <section id="requirement-section" class="requirement-section" aria-label="Contact Requirement">
+        <div class="section-header fade-up">
+          <h2>📋 According to Your <span class="text-gold">Requirement</span></h2>
+          <p>Tell us your exact need and we'll help you choose the perfect stabilizer.<br/>We'll reply on WhatsApp within 30 minutes.</p>
+        </div>
+
+        <div class="requirement-card fade-up">
+          <form id="requirement-form" onsubmit="submitRequirement(event)" novalidate>
+            <div class="req-form-grid">
+              <!-- Name -->
+              <div class="form-group">
+                <label class="form-label" for="req-name">Full Name *</label>
+                <input
+                  id="req-name"
+                  class="form-input"
+                  type="text"
+                  placeholder="Your full name"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label class="form-label" for="req-email">Email</label>
+                <input
+                  id="req-email"
+                  class="form-input"
+                  type="email"
+                  placeholder="your@email.com (optional)"
+                  autocomplete="email"
+                />
+              </div>
+
+              <!-- Phone -->
+              <div class="form-group">
+                <label class="form-label" for="req-phone">Phone Number *</label>
+                <input
+                  id="req-phone"
+                  class="form-input"
+                  type="tel"
+                  placeholder="10-digit mobile number"
+                  maxlength="10"
+                  inputmode="numeric"
+                  autocomplete="tel"
+                  required
+                />
+              </div>
+
+              <!-- Purpose -->
+              <div class="form-group">
+                <label class="form-label" for="req-purpose">Purpose *</label>
+                <select id="req-purpose" class="form-input form-select" required>
+                  <option value="Buying for Home">🏠 Buying for Home</option>
+                  <option value="Buying for Office">🏢 Buying for Office</option>
+                  <option value="Dealer/Distributor">🤝 Dealer / Distributor</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Message (full width) -->
+            <div class="form-group" style="margin-top:4px;">
+              <label class="form-label" for="req-message">Your Requirement *</label>
+              <textarea
+                id="req-message"
+                class="form-input"
+                rows="4"
+                placeholder="Write your specific requirement here... (e.g. 1.5 Ton AC in low voltage area, need stabilizer for office with 2 ACs, etc.)"
+                required
+                style="resize:vertical;"
+              ></textarea>
+            </div>
+
+            <div class="req-form-footer">
+              <p class="req-note">
+                📲 Clicking Submit will open <strong>WhatsApp</strong> with your message pre-filled. Just hit Send.
+              </p>
+              <button type="submit" class="btn btn-gold" style="min-width:180px; font-size:1rem; padding:14px 28px;">
+                📤 Send on WhatsApp
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Contact chips -->
+        <div class="contact-chips fade-up">
+          <a href="tel:+919928954791" class="contact-chip">
+            <span>📞</span>
+            <div>
+              <div style="font-weight:700;">Call Us</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);">+91 9928954791</div>
+            </div>
+          </a>
+          <a href="https://wa.me/919928954791" target="_blank" rel="noopener noreferrer" class="contact-chip">
+            <span>💬</span>
+            <div>
+              <div style="font-weight:700;">WhatsApp</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);">Chat directly</div>
+            </div>
+          </a>
+          <div class="contact-chip">
+            <span>🕐</span>
+            <div>
+              <div style="font-weight:700;">Response Time</div>
+              <div style="font-size:0.8rem;color:var(--text-muted);">Within 30 min</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section><!-- end section-home -->
+
+    <!-- ───────────────── CART SECTION ───────────────── -->
     <section id="section-cart" class="section" aria-label="Your Cart">
       <div class="section-header" style="margin-top:40px;">
         <h2>Your <span class="text-gold">Cart</span></h2>
         <p>Review your selected items before checkout.</p>
       </div>
-      <div id="cart-page-content">
-        <!-- Rendered by cart.js when this section is active -->
-      </div>
+      <div id="cart-page-content"></div>
     </section>
 
-    <!-- ─────────────── MY ORDERS SECTION ─────────────── -->
+    <!-- ───────────────── MY ORDERS SECTION ──────────── -->
     <section id="section-orders" class="section" aria-label="My Orders">
       <div class="section-header" style="margin-top:40px;">
         <h2>My <span class="text-gold">Orders</span></h2>
         <p>Track and manage all your placed orders.</p>
       </div>
-      <div id="orders-list" class="orders-grid" role="list" aria-label="Orders List">
-        <!-- Rendered by orders.js -->
-      </div>
+      <div id="orders-list" class="orders-grid" role="list" aria-label="Orders List"></div>
     </section>
 
   </main>
 
-  <!-- ═══════════════════════════════════════════════════════
-       BOTTOM NAVIGATION (Mobile + Desktop below header on ≤767px)
-  ═══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════
+       BOTTOM NAVIGATION (mobile)
+  ══════════════════════════════════════════════════════ -->
   <nav id="bottom-nav" role="navigation" aria-label="Bottom Navigation">
     <button id="nav-home-mob"   class="bottom-nav-btn active" onclick="switchTab('home')"   aria-label="Home">
-      <span class="nav-icon">🏠</span>
-      <span>Home</span>
+      <span class="nav-icon">🏠</span><span>Home</span>
     </button>
     <button id="nav-cart-mob"   class="bottom-nav-btn"        onclick="switchTab('cart')"   aria-label="Cart">
-      <span class="nav-icon">🛒</span>
-      <span>Cart</span>
+      <span class="nav-icon">🛒</span><span>Cart</span>
     </button>
     <button id="nav-orders-mob" class="bottom-nav-btn"        onclick="switchTab('orders')" aria-label="My Orders">
-      <span class="nav-icon">📋</span>
-      <span>My Orders</span>
+      <span class="nav-icon">📋</span><span>My Orders</span>
     </button>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════
-       CART DRAWER (Slide-in from right)
-  ═══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════
+       CART DRAWER
+  ══════════════════════════════════════════════════════ -->
   <div id="cart-overlay" onclick="closeCartDrawer()" aria-hidden="true"></div>
   <aside id="cart-drawer" role="complementary" aria-label="Shopping Cart">
     <div class="cart-header">
-      <h3>🛒 Your Cart <span id="cart-item-count" class="text-muted" style="font-size:0.85rem; font-weight:400;">(0 items)</span></h3>
+      <h3>🛒 Your Cart <span id="cart-item-count" class="text-muted" style="font-size:0.85rem;font-weight:400;">(0 items)</span></h3>
       <button class="cart-close" onclick="closeCartDrawer()" aria-label="Close Cart">✕</button>
     </div>
     <div class="cart-items" id="cart-items-list">
-      <!-- Cart items rendered by cart.js -->
       <div class="cart-empty">
         <div class="cart-empty-icon">🛒</div>
         <p>Your cart is empty</p>
@@ -234,26 +430,26 @@
     </div>
   </aside>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════
        AUTH MODAL
-  ═══════════════════════════════════════════════════════ -->
-  <div id="auth-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Authentication" onclick="handleModalOverlayClick(event, 'auth-modal')">
+  ══════════════════════════════════════════════════════ -->
+  <div id="auth-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Authentication" onclick="handleModalOverlayClick(event,'auth-modal')">
     <div class="modal">
       <div class="modal-header">
         <div>
-          <div class="modal-title" id="auth-modal-title">Welcome to Power Tech</div>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Secure login to manage your orders</p>
+          <div class="modal-title">Welcome to Power Tech</div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">Secure login to manage your orders</p>
         </div>
         <button class="modal-close" onclick="closeAuthModal()" aria-label="Close">✕</button>
       </div>
       <div class="modal-body">
-        <!-- Tab Switch -->
+        <!-- Tabs -->
         <div class="auth-tabs" role="tablist">
           <button id="tab-signin" class="auth-tab active" onclick="switchAuthTab('signin')" role="tab" aria-selected="true">Sign In</button>
           <button id="tab-signup" class="auth-tab"        onclick="switchAuthTab('signup')" role="tab" aria-selected="false">Sign Up</button>
         </div>
 
-        <!-- Sign In Form -->
+        <!-- Sign In -->
         <form id="signin-form" onsubmit="handleSignIn(event)" novalidate>
           <div class="form-group">
             <label class="form-label" for="signin-phone">Phone Number</label>
@@ -266,12 +462,10 @@
             <span id="signin-pass-err" class="form-error"></span>
           </div>
           <div id="signin-error" class="form-error mb-16" style="font-size:0.85rem;"></div>
-          <button type="submit" id="signin-submit-btn" class="btn btn-gold w-full">
-            Sign In →
-          </button>
+          <button type="submit" id="signin-submit-btn" class="btn btn-gold w-full">Sign In →</button>
         </form>
 
-        <!-- Sign Up Form -->
+        <!-- Sign Up -->
         <form id="signup-form" class="hidden" onsubmit="handleSignUp(event)" novalidate>
           <div class="form-group">
             <label class="form-label" for="signup-name">Full Name *</label>
@@ -299,26 +493,85 @@
             <span id="signup-confirm-err" class="form-error"></span>
           </div>
           <div id="signup-error" class="form-error mb-16" style="font-size:0.85rem;"></div>
-          <button type="submit" id="signup-submit-btn" class="btn btn-gold w-full">
-            Create Account →
-          </button>
+          <button type="submit" id="signup-submit-btn" class="btn btn-gold w-full">Create Account →</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       CHECKOUT MODAL (Multi-step)
-  ═══════════════════════════════════════════════════════ -->
-  <div id="checkout-modal" role="dialog" aria-modal="true" aria-label="Checkout">
-    <div class="checkout-box">
-      <!-- Header -->
-      <div class="checkout-header">
-        <div class="checkout-title">🛍️ Checkout</div>
-        <button class="modal-close" onclick="closeCheckout()" aria-label="Close Checkout">✕</button>
+  <!-- ══════════════════════════════════════════════════════
+       PRODUCT DETAIL MODAL (NEW)
+  ══════════════════════════════════════════════════════ -->
+  <div id="product-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Product Details" onclick="if(event.target.id==='product-modal') closeProductModal()">
+    <div class="modal product-detail-modal">
+      <div class="modal-header">
+        <div>
+          <div class="pm-model-tag" id="pm-model">PT-XXXX</div>
+          <div class="modal-title" id="pm-name">Product Name</div>
+        </div>
+        <button class="modal-close" onclick="closeProductModal()" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body pm-body">
+        <!-- Product image -->
+        <div class="pm-image-wrap">
+          <img id="pm-image" src="" alt="Product" loading="lazy" />
+        </div>
+
+        <!-- Category pill -->
+        <div class="pm-category-pill" id="pm-category">⚡ Mid Range</div>
+
+        <!-- Spec grid -->
+        <div class="pm-specs">
+          <div class="pm-spec-item">
+            <span class="pm-spec-label">⚡ Input Range</span>
+            <span class="pm-spec-val" id="pm-input">170V – 270V</span>
+          </div>
+          <div class="pm-spec-item">
+            <span class="pm-spec-label">🔋 Output Range</span>
+            <span class="pm-spec-val" id="pm-output">200V – 240V ±5%</span>
+          </div>
+          <div class="pm-spec-item pm-spec-price">
+            <span class="pm-spec-label">💰 Price</span>
+            <span class="pm-spec-val pm-price-val" id="pm-price">₹2,250</span>
+          </div>
+        </div>
+
+        <!-- Supported appliances -->
+        <div style="margin-bottom:16px;">
+          <div class="pm-section-label">🔌 Supported Appliances</div>
+          <div class="product-appliances" id="pm-appliances"></div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <div class="pm-section-label">📋 Description</div>
+          <p class="pm-desc" id="pm-desc"></p>
+        </div>
       </div>
 
-      <!-- Progress Bar -->
+      <!-- Modal footer buttons -->
+      <div class="pm-footer">
+        <button id="pm-add-cart-btn" class="btn btn-outline" onclick="pmAddToCart()" style="flex:1;">
+          🛒 Add to Cart
+        </button>
+        <button id="pm-buy-btn" class="btn btn-gold-pulse" onclick="pmBuyNow()" style="flex:1;">
+          Buy Now →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHECKOUT MODAL (Multi-step)
+  ══════════════════════════════════════════════════════ -->
+  <div id="checkout-modal" role="dialog" aria-modal="true" aria-label="Checkout">
+    <div class="checkout-box">
+      <div class="checkout-header">
+        <div class="checkout-title">🛍️ Checkout</div>
+        <button class="modal-close" onclick="closeCheckout()" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Progress -->
       <div class="checkout-progress">
         <div class="progress-steps" role="list">
           <div class="progress-step active" id="ps-1" role="listitem">
@@ -336,10 +589,9 @@
         </div>
       </div>
 
-      <!-- Steps Body -->
       <div class="checkout-body">
 
-        <!-- STEP 1: Address -->
+        <!-- Step 1: Address -->
         <div id="checkout-step-1" class="checkout-step active">
           <form id="address-form" onsubmit="goToCheckoutStep(2); return false;" novalidate>
             <div class="form-group">
@@ -357,7 +609,7 @@
               <textarea id="addr-address" class="form-input" rows="3" placeholder="House/Flat no, Street, Locality" required style="resize:vertical;"></textarea>
               <span id="addr-address-err" class="form-error"></span>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
               <div class="form-group">
                 <label class="form-label" for="addr-city">City *</label>
                 <input id="addr-city" class="form-input" type="text" placeholder="City" required />
@@ -372,11 +624,10 @@
           </form>
         </div>
 
-        <!-- STEP 2: Payment -->
+        <!-- Step 2: Payment -->
         <div id="checkout-step-2" class="checkout-step">
-          <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:20px;">Select a payment method below:</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;">Select your payment method:</p>
 
-          <!-- COD Option -->
           <label class="payment-option">
             <input type="radio" name="payment-method" id="pay-cod" value="COD" checked />
             <span class="payment-option-icon">💵</span>
@@ -386,7 +637,6 @@
             </div>
           </label>
 
-          <!-- UPI Option -->
           <label class="payment-option">
             <input type="radio" name="payment-method" id="pay-upi" value="UPI" />
             <span class="payment-option-icon">📲</span>
@@ -396,119 +646,51 @@
             </div>
           </label>
 
-          <!-- UPI Details (hidden until UPI selected) -->
+          <!-- UPI Details -->
           <div id="upi-section" class="hidden" style="margin-top:20px;">
-            <!-- QR Code -->
-            <div style="text-align:center; margin-bottom:16px;">
-              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Scan QR code with any UPI app</p>
-              <div class="qr-placeholder">
-                <!-- Inline SVG QR-like decorative pattern -->
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-                  <rect width="200" height="200" fill="white"/>
-                  <!-- Finder pattern TL -->
-                  <rect x="10" y="10" width="60" height="60" rx="4" fill="black"/>
-                  <rect x="18" y="18" width="44" height="44" rx="2" fill="white"/>
-                  <rect x="26" y="26" width="28" height="28" rx="2" fill="black"/>
-                  <!-- Finder pattern TR -->
-                  <rect x="130" y="10" width="60" height="60" rx="4" fill="black"/>
-                  <rect x="138" y="18" width="44" height="44" rx="2" fill="white"/>
-                  <rect x="146" y="26" width="28" height="28" rx="2" fill="black"/>
-                  <!-- Finder pattern BL -->
-                  <rect x="10" y="130" width="60" height="60" rx="4" fill="black"/>
-                  <rect x="18" y="138" width="44" height="44" rx="2" fill="white"/>
-                  <rect x="26" y="146" width="28" height="28" rx="2" fill="black"/>
-                  <!-- Data dots pattern -->
-                  <rect x="85" y="10" width="8" height="8" fill="black"/>
-                  <rect x="100" y="10" width="8" height="8" fill="black"/>
-                  <rect x="115" y="10" width="8" height="8" fill="black"/>
-                  <rect x="85" y="25" width="8" height="8" fill="black"/>
-                  <rect x="115" y="25" width="8" height="8" fill="black"/>
-                  <rect x="85" y="40" width="8" height="8" fill="black"/>
-                  <rect x="100" y="40" width="8" height="8" fill="black"/>
-                  <!-- More data -->
-                  <rect x="10" y="85" width="8" height="8" fill="black"/>
-                  <rect x="25" y="85" width="8" height="8" fill="black"/>
-                  <rect x="40" y="85" width="8" height="8" fill="black"/>
-                  <rect x="55" y="85" width="8" height="8" fill="black"/>
-                  <rect x="10" y="100" width="8" height="8" fill="black"/>
-                  <rect x="40" y="100" width="8" height="8" fill="black"/>
-                  <rect x="10" y="115" width="8" height="8" fill="black"/>
-                  <rect x="25" y="115" width="8" height="8" fill="black"/>
-                  <rect x="55" y="115" width="8" height="8" fill="black"/>
-                  <!-- Center data -->
-                  <rect x="85" y="85" width="8" height="8" fill="black"/>
-                  <rect x="100" y="85" width="8" height="8" fill="black"/>
-                  <rect x="115" y="85" width="8" height="8" fill="black"/>
-                  <rect x="130" y="85" width="8" height="8" fill="black"/>
-                  <rect x="85" y="100" width="8" height="8" fill="black"/>
-                  <rect x="115" y="100" width="8" height="8" fill="black"/>
-                  <rect x="85" y="115" width="8" height="8" fill="black"/>
-                  <rect x="100" y="115" width="8" height="8" fill="black"/>
-                  <rect x="130" y="115" width="8" height="8" fill="black"/>
-                  <!-- Right column data -->
-                  <rect x="145" y="85" width="8" height="8" fill="black"/>
-                  <rect x="160" y="85" width="8" height="8" fill="black"/>
-                  <rect x="175" y="85" width="8" height="8" fill="black"/>
-                  <rect x="145" y="100" width="8" height="8" fill="black"/>
-                  <rect x="175" y="100" width="8" height="8" fill="black"/>
-                  <rect x="160" y="115" width="8" height="8" fill="black"/>
-                  <!-- Bottom data -->
-                  <rect x="85" y="130" width="8" height="8" fill="black"/>
-                  <rect x="100" y="130" width="8" height="8" fill="black"/>
-                  <rect x="115" y="130" width="8" height="8" fill="black"/>
-                  <rect x="130" y="130" width="8" height="8" fill="black"/>
-                  <rect x="145" y="130" width="8" height="8" fill="black"/>
-                  <rect x="160" y="130" width="8" height="8" fill="black"/>
-                  <rect x="175" y="130" width="8" height="8" fill="black"/>
-                  <rect x="85" y="145" width="8" height="8" fill="black"/>
-                  <rect x="115" y="145" width="8" height="8" fill="black"/>
-                  <rect x="85" y="160" width="8" height="8" fill="black"/>
-                  <rect x="100" y="160" width="8" height="8" fill="black"/>
-                  <rect x="130" y="160" width="8" height="8" fill="black"/>
-                  <rect x="160" y="160" width="8" height="8" fill="black"/>
-                  <rect x="175" y="160" width="8" height="8" fill="black"/>
-                  <rect x="85" y="175" width="8" height="8" fill="black"/>
-                  <rect x="115" y="175" width="8" height="8" fill="black"/>
-                  <rect x="145" y="175" width="8" height="8" fill="black"/>
-                  <rect x="175" y="175" width="8" height="8" fill="black"/>
-                  <!-- UPI label in center -->
-                  <text x="100" y="78" text-anchor="middle" font-size="10" font-family="Arial" font-weight="bold" fill="#f5b642">powertech@upi</text>
-                </svg>
+            <div style="text-align:center;margin-bottom:16px;">
+              <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;">Scan with any UPI app to pay</p>
+              <!-- Real QR code image -->
+              <div class="qr-placeholder" style="width:200px;height:200px;margin:0 auto;border-radius:12px;overflow:hidden;border:3px solid var(--border-gold);box-shadow:var(--shadow-gold);background:white;">
+                <img
+                  src="img/qr_upi.jpg"
+                  alt="UPI QR Code — sanjaysharmas9834@ybl"
+                  style="width:100%;height:100%;object-fit:contain;"
+                  onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;display:flex;align-items:center;justify-content:center;height:100%;background:#fff;font-size:0.8rem;color:#333;&quot;>QR Code<br/>sanjaysharmas9834@ybl</div>'"
+                />
               </div>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">UPI ID: <strong style="color:var(--accent-gold);">powertech@upi</strong></p>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">
+                UPI ID: <strong style="color:var(--accent-gold);">sanjaysharmas9834@ybl</strong>
+              </p>
             </div>
 
-            <!-- Mandatory Warning -->
             <div class="upi-warning" role="alert">
               📸 <strong>Uploading the payment screenshot is COMPULSORY.</strong><br />
               Without proof, your order cannot be processed.
             </div>
 
-            <!-- File Upload -->
             <div class="file-upload-area" id="file-upload-area" onclick="document.getElementById('screenshot-input').click()">
               <div class="upload-icon">📁</div>
               <p>Click to upload payment screenshot</p>
-              <p style="font-size:0.75rem; margin-top:4px;">JPG, PNG or WEBP — Max 5MB</p>
+              <p style="font-size:0.75rem;margin-top:4px;">JPG, PNG or WEBP — Max 5MB</p>
               <div class="file-name hidden" id="file-name-display"></div>
             </div>
             <input type="file" id="screenshot-input" accept="image/*" class="hidden" onchange="handleScreenshotUpload(this)" />
           </div>
         </div>
 
-        <!-- STEP 3: Summary -->
+        <!-- Step 3: Summary -->
         <div id="checkout-step-3" class="checkout-step">
-          <div id="order-summary-content">
-            <!-- Rendered by checkout.js -->
-          </div>
+          <div id="order-summary-content"></div>
         </div>
 
-        <!-- STEP 4: Success -->
+        <!-- Success -->
         <div id="checkout-step-success" class="checkout-step">
           <div class="success-anim">
             <span class="success-icon">✅</span>
             <div class="success-title">Order Placed!</div>
             <p class="success-subtitle">Your order has been placed successfully. You'll receive updates shortly.</p>
-            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
               <button class="btn btn-gold" onclick="viewMyOrder()">📋 View Order</button>
               <button class="btn btn-outline" onclick="closeCheckout()">Continue Shopping</button>
             </div>
@@ -517,47 +699,42 @@
 
       </div><!-- end checkout-body -->
 
-      <!-- Footer with navigation buttons -->
       <div class="checkout-footer" id="checkout-nav-footer">
         <button class="btn btn-outline" id="checkout-back-btn" onclick="checkoutBack()" style="display:none;">← Back</button>
         <button class="btn btn-gold w-full" id="checkout-next-btn" onclick="checkoutNext()">Continue →</button>
       </div>
-
-    </div><!-- end checkout-box -->
+    </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════
        LIGHTBOX
-  ═══════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════════════════ -->
   <div id="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Image Viewer">
     <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
     <img id="lightbox-img" src="" alt="Payment Screenshot" loading="lazy" />
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════
        FLOATING CALL BUTTON
-  ═══════════════════════════════════════════════════════ -->
-  <a id="float-call" href="tel:+919876543210" aria-label="Call Power Tech on +91 9876543210">
-    <span class="call-tooltip">📞 +91 9876543210</span>
+  ══════════════════════════════════════════════════════ -->
+  <a id="float-call" href="tel:+919928954791" aria-label="Call Power Tech on +91 9928954791">
+    <span class="call-tooltip">📞 +91 9928954791</span>
     📞
   </a>
 
-  <!-- ═══════════════════════════════════════════════════════
-       TOAST CONTAINER
-  ═══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════
+       TOAST & SPINNER
+  ══════════════════════════════════════════════════════ -->
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SPINNER OVERLAY
-  ═══════════════════════════════════════════════════════ -->
   <div id="spinner-overlay" role="status" aria-label="Loading">
     <div class="spinner"></div>
     <span class="spinner-text" id="spinner-text">Processing your order...</span>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       JAVASCRIPT MODULES (Order matters — no build tool)
-  ═══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════
+       SCRIPTS (order matters)
+  ══════════════════════════════════════════════════════ -->
   <script src="js/config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/cart.js"></script>
@@ -568,5 +745,3 @@
 
 </body>
 </html>
-"<!-- Force rebuild -->" 
-"<!-- Force rebuild -->" 
