@@ -8,7 +8,7 @@
 // Change this to your Render deployment URL after deploying the backend.
 // Example: 'http://localhost:5000'
 const CONFIG = {
-  BACKEND_URL: 'https://power-tech.onrender.com',   // <-- Ye Render wala exact URL
+  BACKEND_URL: 'https://power-tech.onrender.com',   // <-- live url
   PHONE_NUMBER: '+919876543210',
   WHATSAPP_NUMBER: '919876543210',
   // Supported order status values (must match backend)
