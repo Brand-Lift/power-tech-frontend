@@ -7,7 +7,7 @@
 // ─── Site-wide Configurables ──────────────────────────────────────────────────
 const CONFIG = {
   // Backend API (update after deploying to Render)
-  BACKEND_URL: 'https://powertech-api.onrender.com',
+  BACKEND_URL: 'https://power-tech.onrender.com',
 
   // Contact & Payment — CHANGE THESE AS NEEDED
   PHONE_NUMBER:     '+919928954791',
